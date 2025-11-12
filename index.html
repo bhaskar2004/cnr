@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Warming - A Climate Crisis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #000000;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 40px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #1e0fa8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        .nav-menu a {
+            color: #d1d1d6;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #000000;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .glass-card:hover {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            animation: scaleIn 0.8s ease;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #000000;
+            letter-spacing: -1px;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin: 30px 0 20px 0;
+            color: #000000;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        ul {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        li {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            color: #000000;
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        li:nth-child(1) { animation-delay: 0.1s; }
+        li:nth-child(2) { animation-delay: 0.2s; }
+        li:nth-child(3) { animation-delay: 0.3s; }
+        li:nth-child(4) { animation-delay: 0.4s; }
+        li:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            animation: pulse 2s ease infinite;
+        }
+
+        .hero {
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #000000;
+        }
+
+        .stat-box {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateX(10px);
+            background: rgba(231, 76, 60, 0.15);
+        }
+
+        .stat-box strong {
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(2) .icon {
+            animation-delay: 0.5s;
+        }
+
+        .feature-card:nth-child(3) .icon {
+            animation-delay: 1s;
+        }
+
+        .feature-card:nth-child(4) .icon {
+            animation-delay: 1.5s;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            animation: pulse 2s ease infinite;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            animation: scaleIn 0.8s ease 0.5s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            animation: fadeInRight 1s ease 1s backwards;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot:hover::after, .nav-dot.active::after {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-dot:hover, .nav-dot.active {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+
+        /* Parallax Background Elements */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .bg-element-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: 10%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .bg-element-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            bottom: 15%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 40px 30px;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <video id="bg-video" autoplay muted loop>
+        <source src="earth.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="logo">🌍 Climate Action</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#science">Science</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#action">Take Action</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Section 1: Hero -->
+    <section class="section hero" id="home">
+        <div class="bg-element bg-element-1"></div>
+        <div class="bg-element bg-element-2"></div>
+        <div class="glass-card">
+            <h1>🌍 Global Warming</h1>
+            <p>Understanding Our Planet's Climate Crisis</p>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Section 2: Introduction -->
+    <section class="section" id="science">
+        <div class="glass-card animate-on-scroll">
+            <h2>What is Global Warming?</h2>
+            <p>Global warming is the long-term heating of Earth's surface observed since the pre-industrial period due to human activities, primarily fossil fuel burning, which increases heat-trapping greenhouse gas levels in Earth's atmosphere.</p>
+            <div class="stat-box">
+                <strong>Critical Fact:</strong> Earth's average temperature has risen by <span class="highlight">1.1°C (2°F)</span> since the late 19th century, with most warming occurring in the past 40 years.
+            </div>
+            <p>This temperature increase affects weather patterns, ice masses, sea levels, and ecosystems worldwide, presenting one of the most significant challenges of our time.</p>
+        </div>
+    </section>
+
+    <!-- Section 3: The Science -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll">
+            <h2>The Science Behind It</h2>
+            <h3 class="gradient-text">The Greenhouse Effect</h3>
+            <p>Greenhouse gases in the atmosphere trap heat from the sun, creating a warming effect similar to a greenhouse. While this natural process is essential for life, human activities have intensified it dramatically.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="icon">💨</span>
+                    <h3>CO₂ (Carbon Dioxide)</h3>
+                    <p>Released from burning fossil fuels - the primary driver of climate change</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🌾</span>
+                    <h3>CH₄ (Methane)</h3>
+                    <p>Emitted from agriculture, livestock, and natural gas production</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🏭</span>
+                    <h3>N₂O (Nitrous Oxide)</h3>
+                    <p>Released from industrial activities and fertilizers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Main Causes -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll">
+            <h2>Primary Causes</h2>
+            <ul>
+                <li><strong>Fossil Fuel Combustion:</strong> Coal, oil, and natural gas burning for electricity, heat, and transportation releases massive amounts of CO₂</li>
+                <li><strong>Deforestation:</strong> Clearing forests eliminates trees that absorb CO₂, while burning them releases stored carbon</li>
+                <li><strong>Industrial Manufacturing:</strong> Cement production, chemical processing, and heavy industry emit significant greenhouse gases</li>
+                <li><strong>Agriculture & Livestock:</strong> Cattle produce methane, while rice paddies and fertilizers release additional emissions</li>
+                <li><strong>Transportation:</strong> Cars, trucks, ships, and planes burn petroleum products, contributing ~25% of global emissions</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 5: Environmental Effects -->
+    <section class="section" id="impact">
+        <div class="glass-card animate-on-scroll">
+            <h2>Environmental Impacts</h2>
+            <h3 class="gradient-text">Ice & Glaciers</h3>
+            <p>Arctic sea ice is declining at 13% per decade. Major glaciers worldwide are retreating, threatening water supplies for millions.</p>
+            
+            <h3 class="gradient-text">Rising Sea Levels</h3>
+            <p>Sea levels have risen 8-9 inches since 1880, with the rate of increase accelerating. Coastal communities face increasing flood risks.</p>
+            
+            <h3 class="gradient-text">Ocean Changes</h3>
+            <p>Oceans absorb 90% of excess heat and 30% of CO₂, causing warming and acidification that threatens marine ecosystems and coral reefs.</p>
+        </div>
+    </section>
+
+    <!-- Section 6: Extreme Weather -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll">
+            <h2>Extreme Weather Events</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="icon">🌪️</span>
+                    <h3>Hurricanes</h3>
+                    <p>More intense storms with higher wind speeds and rainfall</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔥</span>
+                    <h3>Wildfires</h3>
+                    <p>Longer fire seasons with more frequent and severe blazes</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🌊</span>
+                    <h3>Floods</h3>
+                    <p>Increased heavy precipitation events causing devastating floods</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">☀️</span>
+                    <h3>Droughts</h3>
+                    <p>Extended dry periods threatening agriculture and water supplies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Biodiversity Loss -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll">
+            <h2>Impact on Biodiversity</h2>
+            <p>Climate change threatens up to <span class="highlight">one million species</span> with extinction. Ecosystems are struggling to adapt to rapid temperature changes.</p>
+            <ul>
+                <li><strong>Habitat Loss:</strong> Animals lose their homes as environments change faster than they can adapt</li>
+                <li><strong>Migration Disruption:</strong> Timing of seasons shifts, affecting migration and breeding patterns</li>
+                <li><strong>Food Chain Collapse:</strong> Changes at one level affect entire ecosystems</li>
+                <li><strong>Coral Bleaching:</strong> Rising ocean temperatures kill coral reefs, ocean biodiversity hotspots</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 8: Human Impact -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll">
+            <h2>Impact on Humanity</h2>
+            <h3 class="gradient-text">Health Effects</h3>
+            <p>Heat waves, air pollution, and disease spread threaten human health worldwide. Climate change is already affecting vulnerable populations.</p>
+            
+            <h3 class="gradient-text">Food Security</h3>
+            <p>Changing rainfall patterns, droughts, and extreme weather threaten crop yields and food production systems.</p>
+            
+            <h3 class="gradient-text">Water Scarcity</h3>
+            <p>Over 2 billion people face water stress. Climate change intensifies droughts and affects freshwater availability.</p>
+            
+            <div class="stat-box">
+                <strong>Economic Cost:</strong> Climate change could cost the global economy trillions of dollars annually by 2050 if left unchecked.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Solutions & Technology -->
+    <section class="section" id="solutions">
+        <div class="glass-card animate-on-scroll">
+            <h2>Solutions & Innovation</h2>
+            <h3 class="gradient-text">Clean Energy Revolution</h3>
+            <ul>
+                <li><strong>Solar Power:</strong> Rapidly becoming the cheapest source of electricity worldwide</li>
+                <li><strong>Wind Energy:</strong> Onshore and offshore wind farms generating clean electricity</li>
+                <li><strong>Hydroelectric:</strong> Harnessing water power for renewable energy</li>
+                <li><strong>Nuclear Energy:</strong> Zero-emission baseload power generation</li>
+                <li><strong>Battery Storage:</strong> Advanced technology storing renewable energy for when needed</li>
+            </ul>
+            
+            <h3 class="gradient-text">Carbon Capture</h3>
+            <p>Emerging technologies capture CO₂ directly from the atmosphere or industrial sources, offering hope for reducing existing emissions.</p>
+        </div>
+    </section>
+
+    <!-- Section 10: Individual Action -->
+    <section class="section" id="action">
+        <div class="glass-card animate-on-scroll">
+            <h2>What You Can Do</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="icon">🚲</span>
+                    <h3>Transportation</h3>
+                    <p>Walk, bike, use public transit, or choose electric vehicles</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">💡</span>
+                    <h3>Energy</h3>
+                    <p>Use LED bulbs, improve insulation, choose renewable energy</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🌱</span>
+                    <h3>Diet</h3>
+                    <p>Reduce meat consumption, eat local and seasonal foods</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">♻️</span>
+                    <h3>Consumption</h3>
+                    <p>Reduce, reuse, recycle - buy less, choose sustainable products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Call to Action -->
+    <section class="section">
+        <div class="glass-card" style="text-align: center;">
+            <h2>The Time to Act is Now</h2>
+            <p style="font-size: 1.5rem; margin: 40px 0;">We have the technology, knowledge, and resources to address climate change. What we need is collective action and political will.</p>
+            
+            <div class="stat-box" style="text-align: left;">
+                <strong>Remember:</strong> We don't inherit the Earth from our ancestors; we borrow it from our children. The decisions we make today will determine the world they inherit tomorrow.
+            </div>
+            
+            <h3 class="gradient-text" style="margin-top: 50px;">Join the Movement</h3>
+            <ul style="text-align: left; max-width: 700px; margin: 30px auto;">
+                <li>Educate yourself and others about climate science</li>
+                <li>Support policies and politicians committed to climate action</li>
+                <li>Make sustainable choices in your daily life</li>
+                <li>Join environmental organizations and advocacy groups</li>
+                <li>Use your voice to demand change from corporations and governments</li>
+            </ul>
+
+        </div>
+    </section>
+
+    <!-- Section 12: Thank You -->
+    <section class="section">
+        <div class="glass-card animate-on-scroll" style="text-align: center;">
+            <h2>Thank You</h2>
+            <p>Global warming is not a prediction — it’s happening now, and our actions today shape tomorrow’s planet.</p>
+             <button class="cta-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Start from the Beginning ↑</button>
+        </div>
+
+    </section>
+
+    <script>
+        // Progress bar
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (window.scrollY / windowHeight) * 100;
+                    document.getElementById('progressBar').style.width = scrolled + '%';
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Navigation dots
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.getElementById('navDots');
+
+        sections.forEach((section, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot';
+            dot.setAttribute('aria-label', `Go to section ${index + 1}`);
+            dot.addEventListener('click', () => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+            navDots.appendChild(dot);
+        });
+
+        // Update active dot on scroll with debouncing
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                let current = 0;
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                        current = index;
+                    }
+                });
+
+                const dots = document.querySelectorAll('.nav-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === current);
+                });
+            }, 50);
+        });
+
+        // Hide scroll indicator after first scroll
+        let scrolled = false;
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        window.addEventListener('scroll', () => {
+            if (!scrolled && window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+                scrolled = true;
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Auto-hide header on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, false);
+
+        // Parallax effect for background elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.bg-element');
+            
+            parallaxElements.forEach((el, index) => {
+                const speed = 0.5 + (index * 0.2);
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Enhanced click tracking for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s ease-out';
+            ripple.style.pointerEvents = 'none';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Keyboard navigation for accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' && e.ctrlKey) {
+                e.preventDefault();
+                const currentSection = Math.floor(window.scrollY / window.innerHeight);
+                if (currentSection < sections.length - 1) {
+                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' && e.ctrlKey) {
+                e.preventDefault();
+                const currentSection = Math.floor(window.scrollY / window.innerHeight);
+                if (currentSection > 0) {
+                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+
+        // Preload next section images/content for smoother experience
+        const preloadNextSection = () => {
+            const currentSection = Math.floor(window.scrollY / window.innerHeight);
+            if (currentSection < sections.length - 1) {
+                const nextSection = sections[currentSection + 1];
+                const images = nextSection.querySelectorAll('img[data-src]');
+                images.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            }
+        };
+
+        window.addEventListener('scroll', preloadNextSection);
+
+        // Mouse click navigation: left click for next section, right click for previous section
+        let currentSectionIndex = 0;
+
+        document.addEventListener('click', (e) => {
+            // Left click - go to next section
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // Prevent default context menu
+            // Right click - go to previous section
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Update currentSectionIndex on scroll to keep it in sync
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - sectionHeight / 3) {
+                    currentSectionIndex = index;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
